@@ -11,18 +11,23 @@ class AnnouncerView extends StatelessWidget {
       child: Container(
         child: Column(
           children: [
-            Row(
-              children: [
-                Icon(Icons.accessibility_new),
-                SizedBox(width: 10.0),
-                Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.w700,
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, '/hero');
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.accessibility_new),
+                  SizedBox(width: 10.0),
+                  Text(
+                    text,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
