@@ -6,13 +6,32 @@ class HeroPage extends StatefulWidget {
 }
 
 class _HeroPageState extends State<HeroPage> {
+  Map data = {};
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hero'),
+        title: Text('Hero Audio'),
       ),
-      body: Text('Hero 1'),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  data['announcer'],
+                  style: TextStyle(
+                    fontSize: 25.0,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

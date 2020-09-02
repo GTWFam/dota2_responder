@@ -1,4 +1,4 @@
-import 'package:dota2_responser/announcer_view.dart';
+import 'package:dota2_responser/views/announcer_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path/path.dart' as path;
@@ -45,7 +45,13 @@ class _HomeState extends State<Home> {
         child: Column(children: [
           Column(
             children: data.map((e) {
-              return AnnouncerView(text: e);
+              return InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, '/hero',
+                      arguments: {'announcer': e});
+                },
+                child: AnnouncerView(text: e),
+              );
             }).toList(),
           ),
         ]),
