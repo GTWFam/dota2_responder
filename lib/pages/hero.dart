@@ -1,3 +1,4 @@
+import 'package:dota2_responser/views/audio_list.dart';
 import 'package:flutter/material.dart';
 
 class HeroPage extends StatefulWidget {
@@ -10,9 +11,11 @@ class _HeroPageState extends State<HeroPage> {
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
+    String aString = data['announcer'];
+    aString = aString.toUpperCase();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hero Audio'),
+        title: Text('Announcer'),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 0),
@@ -22,12 +25,15 @@ class _HeroPageState extends State<HeroPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  data['announcer'],
+                  aString,
                   style: TextStyle(
                     fontSize: 25.0,
                   ),
                 ),
               ],
+            ),
+            AudioList(
+              heroFolder: data['announcer'],
             ),
           ],
         ),

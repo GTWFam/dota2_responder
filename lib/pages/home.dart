@@ -14,16 +14,12 @@ class _HomeState extends State<Home> {
 
   List data = [];
   fetchFile() async {
-    List heros = [];
     await rootBundle.loadString('assets/heros.txt').then((q) {
       for (String i in LineSplitter().convert(q)) {
-        i = i.toUpperCase();
-        heros.add(i);
+        setState(() {
+          data.add(i);
+        });
       }
-    });
-
-    setState(() {
-      data = heros;
     });
   }
 
