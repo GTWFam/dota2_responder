@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayer/audioplayer.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:dota2_responser/views/audio_controller.dart';
 
 class AudioView extends StatefulWidget {
-  AudioView({this.audioText, this.audioURI});
+  AudioView({this.audioText, this.audioUrl});
   final String audioText;
-  final String audioURI;
+  final String audioUrl;
 
   @override
   AudioViewState createState() {
-    return new AudioViewState(audioText, audioURI);
+    return new AudioViewState(audioText, audioUrl);
   }
 }
 
 class AudioViewState extends State<AudioView> {
-  AudioViewState(this.audioText, this.audioURI);
+  AudioViewState(this.audioText, this.audioUrl);
   String audioText;
-  String audioURI;
-
-  void playSound(String aUri) {
-    AudioPlayer player = AudioPlayer();
-    player.play(aUri);
-  }
+  String audioUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +25,7 @@ class AudioViewState extends State<AudioView> {
       children: [
         FlatButton(
           onPressed: () {
-            playSound(audioURI);
+            AudioController.play(audioUrl);
           },
           child: Icon(Icons.play_arrow),
           shape: CircleBorder(

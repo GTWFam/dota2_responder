@@ -1,9 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'audio_view.dart';
+import 'package:dota2_responser/views/audio_view.dart';
 
 class AudioList extends StatefulWidget {
   AudioList({this.heroFolder});
@@ -19,41 +17,21 @@ class AudioListState extends State<AudioList> {
   AudioListState(this.heroFolder);
   String heroFolder;
 
-  Map<String, String> fileMap = {};
-  Map<String, String> audioMap = {};
-  List audioNames = [];
+  Map<String, String> audioFiles = {};
 
-  fetchFiles() async {
+  void fetchFiles() async {
     await rootBundle
-        .loadString('assets/' + heroFolder + '/' + heroFolder + "_list.txt")
-        .then((q) {
-      for (String i in LineSplitter().convert(q)) {
-        String aMp3 = i + ".mp3";
-        String aTxt = i + ".txt";
+        .loadString('assets/' + heroFolder + "_list.txt")
+        .then((value) async {
+      for (String i in LineSplitter().convert(value)) {
+        String txt = await rootBundle
+            .loadString('assets/' + heroFolder + "/" + i + ".txt");
+        String mp3 = heroFolder + "/" + i + '.mp3';
+
         setState(() {
-          fileMap[aMp3] = aTxt;
+          audioFiles[txt] = mp3;
         });
       }
-    });
-
-    String mp3URI = '';
-    String mp3Text = '';
-
-    fileMap.forEach((key, value) async {
-      final ByteData mp3Data =
-          await rootBundle.load('assets/' + heroFolder + '/' + key);
-      Directory tempDir = await getTemporaryDirectory();
-      File tempFile = new File('${tempDir.path}/' + key);
-      await tempFile.writeAsBytes(mp3Data.buffer.asUint8List(), flush: false);
-      mp3URI = tempFile.uri.toString();
-
-      mp3Text =
-          await rootBundle.loadString('assets/' + heroFolder + '/' + value);
-
-      setState(() {
-        audioMap[mp3Text] = mp3URI;
-        audioNames.add(mp3Text);
-      });
     });
   }
 
@@ -65,14 +43,13 @@ class AudioListState extends State<AudioList> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-          children: audioNames.map((q) {
+    return Column(
+      children: audioFiles.keys.map((e) {
         return AudioView(
-          audioText: q,
-          audioURI: audioMap[q],
+          audioText: e,
+          audioUrl: audioFiles[e],
         );
-      }).toList()),
+      }).toList(),
     );
   }
 }

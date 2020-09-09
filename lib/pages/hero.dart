@@ -19,23 +19,27 @@ class _HeroPageState extends State<HeroPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 20.0, 0, 0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Text(
-                  aString,
-                  style: TextStyle(
-                    fontSize: 25.0,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      aString,
+                      style: TextStyle(
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ],
+                ),
+                AudioList(
+                  heroFolder: data['announcer'],
                 ),
               ],
             ),
-            AudioList(
-              heroFolder: data['announcer'],
-            ),
-          ],
+          ),
         ),
       ),
     );

@@ -38,19 +38,21 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.cyan[600],
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
-          Column(
-            children: data.map((e) {
-              return InkWell(
-                onTap: () {
-                  Navigator.pushNamed(context, '/hero',
-                      arguments: {'announcer': e});
-                },
-                child: AnnouncerView(text: e),
-              );
-            }).toList(),
-          ),
-        ]),
+        child: Column(
+          children: [
+            Column(
+              children: data.map((e) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/hero',
+                        arguments: {'announcer': e});
+                  },
+                  child: AnnouncerView(text: e),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
       ),
     );
   }
