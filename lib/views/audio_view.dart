@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:dota2_responser/views/audio_controller.dart';
 
 class AudioView extends StatefulWidget {

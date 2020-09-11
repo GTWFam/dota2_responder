@@ -1,8 +1,5 @@
 import 'package:dota2_responser/views/announcer_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:path/path.dart' as path;
-import 'dart:convert';
 
 class Home extends StatefulWidget {
   @override
@@ -10,27 +7,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final String hero = path.basename('assets/Abadon');
-
-  List data = [];
-  fetchFile() async {
-    await rootBundle.loadString('assets/heros.txt').then((q) {
-      for (String i in LineSplitter().convert(q)) {
-        setState(() {
-          data.add(i);
-        });
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    fetchFile();
-    super.initState();
-  }
-
+  Map data = {};
+  List heroNames = [];
+  Map<String, Map> audioFilesAll = {};
   @override
   Widget build(BuildContext context) {
+    data = ModalRoute.of(context).settings.arguments;
+    heroNames = data['heroNamesList'];
+    audioFilesAll = data['audioFilesMap'];
     return Scaffold(
       appBar: AppBar(
         title: Text('Dota2Resp'),
@@ -41,13 +25,15 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Column(
-              children: data.map((e) {
+              children: heroNames.map((name) {
                 return InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/hero',
-                        arguments: {'announcer': e});
+                    Navigator.pushNamed(context, '/hero', arguments: {
+                      'announcer': name,
+                      'heroAudioFiles': audioFilesAll[name],
+                    });
                   },
-                  child: AnnouncerView(text: e),
+                  child: AnnouncerView(text: name),
                 );
               }).toList(),
             ),

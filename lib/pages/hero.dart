@@ -11,8 +11,9 @@ class _HeroPageState extends State<HeroPage> {
   @override
   Widget build(BuildContext context) {
     data = ModalRoute.of(context).settings.arguments;
-    String aString = data['announcer'];
-    aString = aString.toUpperCase();
+    String heroName = data['announcer'];
+    Map<String, String> audioFiles = data['heroAudioFiles'];
+    heroName = heroName.toUpperCase();
     return Scaffold(
       appBar: AppBar(
         title: Text('Announcer'),
@@ -26,16 +27,18 @@ class _HeroPageState extends State<HeroPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      aString,
-                      style: TextStyle(
-                        fontSize: 25.0,
+                    Expanded(
+                      child: Text(
+                        heroName,
+                        style: TextStyle(
+                          fontSize: 25.0,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 AudioList(
-                  heroFolder: data['announcer'],
+                  audioFiles: audioFiles,
                 ),
               ],
             ),
