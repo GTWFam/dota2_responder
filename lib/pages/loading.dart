@@ -1,9 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:convert/convert.dart';
-import 'dart:io';
 
 class Loading extends StatefulWidget {
   @override
@@ -22,13 +19,6 @@ class LoadingState extends State<Loading> {
         });
       }
     });
-
-    File aFile = File(
-        '/Users/hoangphanpham/Documents/Projects/Application/dota2_responser/pubspec.yaml');
-    for (String i in heroNamesList) {
-      await aFile.writeAsString('    - assets/' + i + '/\n',
-          mode: FileMode.append, flush: true);
-    }
 
     for (String heroName in heroNamesList) {
       Map<String, String> heroAudio = {};
@@ -49,8 +39,7 @@ class LoadingState extends State<Loading> {
         });
       });
     }
-
-    Navigator.pushNamed(context, '/home', arguments: {
+    Navigator.pushReplacementNamed(context, '/home', arguments: {
       'heroNamesList': heroNamesList,
       'audioFilesMap': audioFilesAll,
     });

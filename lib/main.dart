@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dota2_responser/pages/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:dota2_responser/pages/home.dart';
